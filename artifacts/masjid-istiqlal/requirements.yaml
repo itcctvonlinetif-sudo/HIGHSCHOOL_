@@ -1,0 +1,23 @@
+packages:
+  "framer-motion": "For page transitions, smooth enter animations, and hero slider effects"
+  "date-fns": "For formatting dates nicely in news and event cards"
+  "lucide-react": "For beautiful consistent iconography across the app"
+
+images:
+  - path: "artifacts/masjid-istiqlal/public/images/hero-bg.png"
+    description: "Majestic grand mosque exterior, Islamic architecture, daytime, elegant, rich green and gold tones, cinematic lighting, 8k resolution"
+    aspect_ratio: "16:9"
+  - path: "artifacts/masjid-istiqlal/public/images/pattern-bg.png"
+    description: "Subtle Islamic geometric pattern background, light green and gold, elegant, seamless tileable design"
+    aspect_ratio: "1:1"
+  - path: "artifacts/masjid-istiqlal/public/images/about-img.png"
+    description: "Interior of a grand mosque, massive pillars, elegant warm lighting, peaceful atmosphere"
+    aspect_ratio: "4:3"
+  - path: "artifacts/masjid-istiqlal/public/images/logo.png"
+    description: "Elegant Islamic logo mark for a grand mosque, geometric, dark green and rich gold, transparent background"
+    aspect_ratio: "1:1"
+
+notes:
+  - Using generated Orval hooks from @workspace/api-client-react
+  - Admin auth uses simple localStorage token approach for the frontend routing protection
+  - Assumes standard REST responses for successful creation/updates

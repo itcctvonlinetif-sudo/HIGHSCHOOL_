@@ -1,0 +1,1033 @@
+openapi: 3.1.0
+info:
+  title: Api
+  version: 0.1.0
+  description: Musholla Nurul Iman API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: pages
+    description: Page management
+  - name: menus
+    description: Menu management
+  - name: news
+    description: News management
+  - name: events
+    description: Events management
+  - name: gallery
+    description: Gallery management
+  - name: cctv
+    description: CCTV management
+  - name: settings
+    description: Site settings
+  - name: prayer
+    description: Prayer times
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /pages:
+    get:
+      operationId: getPages
+      tags: [pages]
+      summary: Get all pages
+      responses:
+        "200":
+          description: List of pages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Page"
+    post:
+      operationId: createPage
+      tags: [pages]
+      summary: Create page
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreatePage"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Page"
+
+  /pages/{id}:
+    get:
+      operationId: getPage
+      tags: [pages]
+      summary: Get page by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Page
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Page"
+    put:
+      operationId: updatePage
+      tags: [pages]
+      summary: Update page
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreatePage"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Page"
+    delete:
+      operationId: deletePage
+      tags: [pages]
+      summary: Delete page
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteResponse"
+
+  /menus:
+    get:
+      operationId: getMenus
+      tags: [menus]
+      summary: Get all menus
+      responses:
+        "200":
+          description: List of menus
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Menu"
+    post:
+      operationId: createMenu
+      tags: [menus]
+      summary: Create menu
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateMenu"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Menu"
+
+  /menus/{id}:
+    put:
+      operationId: updateMenu
+      tags: [menus]
+      summary: Update menu
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateMenu"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Menu"
+    delete:
+      operationId: deleteMenu
+      tags: [menus]
+      summary: Delete menu
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteResponse"
+
+  /news:
+    get:
+      operationId: getNews
+      tags: [news]
+      summary: Get all news
+      parameters:
+        - name: published
+          in: query
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: List of news
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/News"
+    post:
+      operationId: createNews
+      tags: [news]
+      summary: Create news
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateNews"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/News"
+
+  /news/{id}:
+    get:
+      operationId: getNewsById
+      tags: [news]
+      summary: Get news by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: News
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/News"
+    put:
+      operationId: updateNews
+      tags: [news]
+      summary: Update news
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateNews"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/News"
+    delete:
+      operationId: deleteNews
+      tags: [news]
+      summary: Delete news
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteResponse"
+
+  /events:
+    get:
+      operationId: getEvents
+      tags: [events]
+      summary: Get all events
+      responses:
+        "200":
+          description: List of events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Event"
+    post:
+      operationId: createEvent
+      tags: [events]
+      summary: Create event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateEvent"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event"
+
+  /events/{id}:
+    put:
+      operationId: updateEvent
+      tags: [events]
+      summary: Update event
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateEvent"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event"
+    delete:
+      operationId: deleteEvent
+      tags: [events]
+      summary: Delete event
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteResponse"
+
+  /gallery:
+    get:
+      operationId: getGallery
+      tags: [gallery]
+      summary: Get gallery items
+      responses:
+        "200":
+          description: List of gallery items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GalleryItem"
+    post:
+      operationId: createGalleryItem
+      tags: [gallery]
+      summary: Create gallery item
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateGalleryItem"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GalleryItem"
+
+  /gallery/{id}:
+    put:
+      operationId: updateGalleryItem
+      tags: [gallery]
+      summary: Update gallery item
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateGalleryItem"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GalleryItem"
+    delete:
+      operationId: deleteGalleryItem
+      tags: [gallery]
+      summary: Delete gallery item
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteResponse"
+
+  /cctv:
+    get:
+      operationId: getCctvCameras
+      tags: [cctv]
+      summary: Get all CCTV cameras
+      responses:
+        "200":
+          description: List of cameras
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CctvCamera"
+    post:
+      operationId: createCctvCamera
+      tags: [cctv]
+      summary: Create CCTV camera
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCctvCamera"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CctvCamera"
+
+  /cctv/{id}:
+    put:
+      operationId: updateCctvCamera
+      tags: [cctv]
+      summary: Update CCTV camera
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCctvCamera"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CctvCamera"
+    delete:
+      operationId: deleteCctvCamera
+      tags: [cctv]
+      summary: Delete CCTV camera
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteResponse"
+
+  /settings:
+    get:
+      operationId: getSettings
+      tags: [settings]
+      summary: Get site settings
+      responses:
+        "200":
+          description: Settings
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SiteSettings"
+    put:
+      operationId: updateSettings
+      tags: [settings]
+      summary: Update site settings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SiteSettings"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SiteSettings"
+
+  /prayer-times:
+    get:
+      operationId: getPrayerTimes
+      tags: [prayer]
+      summary: Get prayer times
+      responses:
+        "200":
+          description: Prayer times
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PrayerTimes"
+    put:
+      operationId: updatePrayerTimes
+      tags: [prayer]
+      summary: Update prayer times
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PrayerTimes"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PrayerTimes"
+
+  /admin/login:
+    post:
+      operationId: adminLogin
+      tags: [settings]
+      summary: Admin login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdminLoginRequest"
+      responses:
+        "200":
+          description: Login success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminLoginResponse"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    DeleteResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+      required:
+        - success
+        - message
+
+    Page:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        slug:
+          type: string
+        content:
+          type: string
+        isPublished:
+          type: boolean
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+        - id
+        - title
+        - slug
+        - content
+        - isPublished
+        - createdAt
+        - updatedAt
+
+    CreatePage:
+      type: object
+      properties:
+        title:
+          type: string
+        slug:
+          type: string
+        content:
+          type: string
+        isPublished:
+          type: boolean
+      required:
+        - title
+        - slug
+        - content
+        - isPublished
+
+    Menu:
+      type: object
+      properties:
+        id:
+          type: integer
+        label:
+          type: string
+        url:
+          type: string
+        order:
+          type: integer
+        parentId:
+          type: integer
+          nullable: true
+        isActive:
+          type: boolean
+      required:
+        - id
+        - label
+        - url
+        - order
+        - isActive
+
+    CreateMenu:
+      type: object
+      properties:
+        label:
+          type: string
+        url:
+          type: string
+        order:
+          type: integer
+        parentId:
+          type: integer
+          nullable: true
+        isActive:
+          type: boolean
+      required:
+        - label
+        - url
+        - order
+        - isActive
+
+    News:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        slug:
+          type: string
+        content:
+          type: string
+        excerpt:
+          type: string
+        imageUrl:
+          type: string
+          nullable: true
+        author:
+          type: string
+        isPublished:
+          type: boolean
+        publishedAt:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+        - id
+        - title
+        - slug
+        - content
+        - excerpt
+        - author
+        - isPublished
+        - createdAt
+        - updatedAt
+
+    CreateNews:
+      type: object
+      properties:
+        title:
+          type: string
+        slug:
+          type: string
+        content:
+          type: string
+        excerpt:
+          type: string
+        imageUrl:
+          type: string
+          nullable: true
+        author:
+          type: string
+        isPublished:
+          type: boolean
+        publishedAt:
+          type: string
+          nullable: true
+      required:
+        - title
+        - slug
+        - content
+        - excerpt
+        - author
+        - isPublished
+
+    Event:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        location:
+          type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+          nullable: true
+        imageUrl:
+          type: string
+          nullable: true
+        isActive:
+          type: boolean
+        createdAt:
+          type: string
+      required:
+        - id
+        - title
+        - description
+        - location
+        - startDate
+        - isActive
+        - createdAt
+
+    CreateEvent:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        location:
+          type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+          nullable: true
+        imageUrl:
+          type: string
+          nullable: true
+        isActive:
+          type: boolean
+      required:
+        - title
+        - description
+        - location
+        - startDate
+        - isActive
+
+    GalleryItem:
+      type: object
+      properties:
+        id:
+          type: integer
+        type:
+          type: string
+        title:
+          type: string
+        imageUrl:
+          type: string
+        category:
+          type: string
+        isActive:
+          type: boolean
+        createdAt:
+          type: string
+      required:
+        - id
+        - type
+        - title
+        - imageUrl
+        - category
+        - isActive
+        - createdAt
+
+    CreateGalleryItem:
+      type: object
+      properties:
+        type:
+          type: string
+        title:
+          type: string
+        imageUrl:
+          type: string
+        category:
+          type: string
+        isActive:
+          type: boolean
+      required:
+        - type
+        - title
+        - imageUrl
+        - category
+        - isActive
+
+    CctvCamera:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        location:
+          type: string
+        streamUrl:
+          type: string
+        embedUrl:
+          type: string
+          nullable: true
+        isActive:
+          type: boolean
+        order:
+          type: integer
+        description:
+          type: string
+          nullable: true
+      required:
+        - id
+        - name
+        - location
+        - streamUrl
+        - isActive
+        - order
+
+    CreateCctvCamera:
+      type: object
+      properties:
+        name:
+          type: string
+        location:
+          type: string
+        streamUrl:
+          type: string
+        embedUrl:
+          type: string
+          nullable: true
+        isActive:
+          type: boolean
+        order:
+          type: integer
+        description:
+          type: string
+          nullable: true
+      required:
+        - name
+        - location
+        - streamUrl
+        - isActive
+        - order
+
+    SiteSettings:
+      type: object
+      properties:
+        siteName:
+          type: string
+        tagline:
+          type: string
+        description:
+          type: string
+        address:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        facebook:
+          type: string
+          nullable: true
+        twitter:
+          type: string
+          nullable: true
+        instagram:
+          type: string
+          nullable: true
+        youtube:
+          type: string
+          nullable: true
+        logoUrl:
+          type: string
+          nullable: true
+        heroImageUrl:
+          type: string
+          nullable: true
+        heroTitle:
+          type: string
+        heroSubtitle:
+          type: string
+      required:
+        - siteName
+        - tagline
+        - description
+        - address
+        - phone
+        - email
+        - heroTitle
+        - heroSubtitle
+
+    PrayerTimes:
+      type: object
+      properties:
+        fajr:
+          type: string
+        dhuhr:
+          type: string
+        asr:
+          type: string
+        maghrib:
+          type: string
+        isha:
+          type: string
+        jumuah:
+          type: string
+        updatedAt:
+          type: string
+          nullable: true
+      required:
+        - fajr
+        - dhuhr
+        - asr
+        - maghrib
+        - isha
+        - jumuah
+
+    AdminLoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      required:
+        - username
+        - password
+
+    AdminLoginResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        token:
+          type: string
+          nullable: true
+        message:
+          type: string
+      required:
+        - success
+        - message

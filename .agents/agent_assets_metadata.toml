@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "PE4sqbg0YKaWaRMU9OMZH"
+uri = "file://PANDUAN-LOKAL.md"
+type = "text"
+title = "Panduan Migrasi ke Server Lokal Ubuntu"
